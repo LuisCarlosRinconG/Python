@@ -1,0 +1,68 @@
+import random #libreria para generar números aleatorios
+
+def suma(num1,num2):
+    return num1+num2
+
+def resta(num1,num2):
+    return num1-num2
+
+def multiplicacion(num1,num2):
+    return num1*num2
+
+def division(num1,num2):
+    return num1/num2
+
+user = int(input('Escoge una de las operaciones: \n1) Suma \n2) Resta \n3) Multiplicación \n4) División: \n '))
+
+if user==1:
+    num1=int(input('Pon tu primer número: \n'))
+    num2=int(input('Pon tu segundo número: \n'))
+    rta = suma(num1,num2)
+    print('La suma es: ', rta)
+elif user==2:
+    num1=int(input('Pon tu primer número: \n'))
+    num2=int(input('Pon tu segundo número: \n'))
+    rta = resta(num1,num2)
+    print('La resta es: ', rta)
+elif user==3:
+    num1=int(input('Pon tu primer número: \n'))
+    num2=int(input('Pon tu segundo número: \n'))
+    rta = multiplicacion(num1,num2)
+    print('La multiplicación es: ', rta)
+elif user==4:
+    num1=int(input('Pon tu primer número: \n'))
+    num2=int(input('Pon tu segundo número: \n'))
+    rta = division(num1,num2)
+    print('La división es: ', rta)
+else:
+    validar=False
+    while(validar==False):
+        print('Digitaste otra opción')
+        numa=int(input('Pon tu primer número: \n'))
+        numb=int(input('Pon tu segundo número: \n'))
+        if numa>numb:
+            print('El número 2 tiene que ser mayor al número 1')
+        elif numa<numb:
+            num_aleatorios = [random.randint(numa,numb) for _ in range(10)]
+            print('la lista de números aleatorios generada es:', num_aleatorios)
+            
+            sumatoria=0
+            
+            for i in num_aleatorios:
+                sumatoria+=i
+            # Se acaba el bucle ya que validar cambia a true por que el número 2 fue mayor
+            validar=True
+
+            print('la suma de los números aleatorios generados es:', sumatoria)
+
+            nombre=input('Dame tu nombre: ')
+            edad=int(input('Dame tu edad: '))
+
+            edad_sumatoria=edad*sumatoria
+
+            print('la multiplicación entre la edad y la sumatoria es:', edad_sumatoria)
+
+            print('Felicidades vas a vivir')
+                
+        else:
+            print('El número 2 tiene que ser mayor al número 1')
