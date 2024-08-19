@@ -1,0 +1,113 @@
+# Enunciado
+'''
+El establecimiento comercial aparta hotel San Andres requiere una automatización digital del control de
+entrada y salida de sus clientes con el fin de saber que cuantas habitaciones se llegaron a ocupar
+y que ganancias se obtuvieron al final del día considerando que hay tres tipos de habitaciones con diferentes
+precios; Habitación oro a 60.000, Habitación platino a 65.000 y habitación rubi a 100.000. Por ultimo
+se debe tener en cuenta que en total son 6 habitaciones oro, 2 platino y 2 rubi y adicinal a eso el usuario
+quiere tener una breve descripción de la habitaciones a modo de catalogo'''
+#-----------------------------------Desarrollo-----------------------------------------------------------------
+
+from datetime import datetime
+
+# Creación de la clase hotel con sus atributos
+class Habitacion:
+    def __init__(self,nombre,tamaño,cualidad):
+        self.nombre=nombre
+        self.tamaño = tamaño
+        self.cualidad = cualidad
+
+# Metodo para mostrar la info de la habitación
+    def Catalogo(self):
+        print(f"La habitación {self.nombre} cuenta con un tamaño {self.tamaño} y una cualidad adicional que es: {self.cualidad}")
+
+# Creación de diccionarios
+
+HabPrecios={'1':60000,'2':60000,'3':60000,'4':60000,'5':60000,'6':60000,
+        '7':65000,'8':65000,'9':100000,'10':100000}
+
+# Creación de listas
+Disponibles=['1','2','3','4','5','6','7','8','9','10']
+Ocupadas=[]
+Sucias=[]
+
+# obtener la fecha de utilización del programa
+fecha=datetime.now()
+fecha_sin_hora=fecha.date()
+
+# Creación de variables necesarias
+salir=False
+Habitaciones_Ocupadas=0
+Total=0
+
+# Creación de funciónes
+def OcuparHab():
+    global Habitaciones_Ocupadas
+    global Total
+
+    habitacion=input('¿Que habitación quieres ocupar? \n')
+
+    Total+=HabPrecios[habitacion]
+
+    if habitacion in Disponibles:
+        Ocupadas.append(habitacion)
+        Disponibles.remove(habitacion)
+        Habitaciones_Ocupadas=Habitaciones_Ocupadas+1
+        print('Habitación Ocupada, gracias')
+    else:
+        print('Esa habitación no existe o ya se encuentra ocupada o sucia')
+
+def DesocuparHab():
+    habitacion=input('¿Que habitación ya salio? \n')
+    if habitacion in Ocupadas:
+        Ocupadas.remove(habitacion)
+        Sucias.append(habitacion)
+        print('Habitación desocupada y marcada como sucia, gracias')
+    else:
+        print('Esa habitación no existe o ya se encuentra ocupada o sucia')
+
+def LimpiarHab():
+    habitacion=input('¿Que habitación se limpio? \n')
+    if habitacion in Sucias:
+        Sucias.remove(habitacion)
+        Disponibles.append(habitacion)
+        print('Habitación limpia y marcada como disponible, gracias')
+    else:
+        print('Esa habitación no existe o ya se encuentra ocupada o sucia')
+    
+
+#Creación del metodo main
+def main():
+# Creación de objetos con sus atributos
+    oro = Habitacion('Oro','Pequeña','ninguna')
+    platino=Habitacion('Platino','Mediano','Camilla')
+    rubi = Habitacion('Rubi','Grande','Jacuzzi y camilla')
+
+    #Creación de bucle para repetir el menu de acciones
+    while True:
+        print('-------------------------------------------------------------------------------------------------------------------------------')
+        print('Bienvenido al aparta hotel san andres')
+        print('Fecha actual: ',fecha_sin_hora)
+        print('Estas son tus habitaciones disponibles: \n',Disponibles[:])
+        print('Estas son tus habitaciones ocupadas: \n',Ocupadas[:])      
+        print('Estas son tus habitaciones sucias: \n',Sucias[:])
+        print('\n 1- recordar catalogo \n 2- Ocupar habitación \n 3- Desocupar habitación \n 4- Limpiar habitación \n 5- Salir')
+        opcion=input('¿Que deceas hacer? \n')
+
+        if opcion=='1':
+            oro.Catalogo()
+            platino.Catalogo()
+            rubi.Catalogo()
+        elif opcion=='2':
+            OcuparHab()
+        elif opcion=='3':
+            DesocuparHab()
+        elif opcion=='4':
+            LimpiarHab()
+        elif opcion=='5':
+            print(f'Para el {fecha_sin_hora} entraron {Habitaciones_Ocupadas} Habitaciones')
+            print(f'El total de ganancia diario fue de: {Total}')
+            print('Gracias y hasta pronto')
+            break
+
+main()
